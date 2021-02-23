@@ -1,6 +1,11 @@
 var express = require('express');
 var app = express();
 
+    //Serve json
+    app.get('/json', (req, res) => {
+        res.json({"message": "Hello json"})
+    })
+
     //Serve css
     app.use('/public', express.static(__dirname + '/public'))
 
