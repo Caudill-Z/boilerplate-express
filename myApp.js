@@ -10,6 +10,14 @@ var app = express();
     //Serve css
     app.use('/public', express.static(__dirname + '/public'))
 
+    //Serve current time
+    app.get('/now', (req, res, next) => {
+      req.time = new Date().toString();
+      next();
+    }, (req, res) => {
+      res.send({"time": req.time});
+    })
+
     //Serve json
     app.get('/json', (req, res) => {
         let message = {"message": "Hello json"}
