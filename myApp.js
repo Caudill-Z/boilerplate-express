@@ -1,6 +1,15 @@
 var express = require('express');
 var app = express();
 
+    //Logger middleware
+    app.use('/', (req, res, next) => {
+      console.log(`${req.method} ${req.path} - ${req.ip}`)
+      next();
+    })
+
+    //Serve css
+    app.use('/public', express.static(__dirname + '/public'))
+
     //Serve json
     app.get('/json', (req, res) => {
         let message = {"message": "Hello json"}
@@ -9,9 +18,6 @@ var app = express();
         }
         res.json(message);
     })
-
-    //Serve css
-    app.use('/public', express.static(__dirname + '/public'))
 
     //Serve html
     app.get('/', (req, res) => {
@@ -23,5 +29,4 @@ var app = express();
     //     res.send('Hello Express');
     // })
 
- module.exports = app;
- 
+module.exports = app;
