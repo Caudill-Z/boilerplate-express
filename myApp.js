@@ -8,11 +8,16 @@ var app = express();
       next();
     })
 
-    
+    //body-parser middleware
     app.use('/', bodyParser.urlencoded({extended: false}));
 
     //Serve css
     app.use('/public', express.static(__dirname + '/public'))
+
+    //Post name
+    app.post('/name', (req, res) => {
+      res.json({"name": `${req.body.first} ${req.body.last}`})
+    })
 
     //Serve name
     app.get('/name', (req, res) => {
