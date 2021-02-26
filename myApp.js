@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
     //Logger middleware
@@ -6,6 +7,9 @@ var app = express();
       console.log(`${req.method} ${req.path} - ${req.ip}`)
       next();
     })
+
+    
+    app.use('/', bodyParser.urlencoded({extended: false}));
 
     //Serve css
     app.use('/public', express.static(__dirname + '/public'))
@@ -28,7 +32,7 @@ var app = express();
       res.json({"time": req.time});
     })
 
-    //Serve json
+    //Serve json based on .env
     app.get('/json', (req, res) => {
         let message = {"message": "Hello json"}
         if(process.env.MESSAGE_STYLE === 'uppercase'){
