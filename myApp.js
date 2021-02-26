@@ -10,12 +10,17 @@ var app = express();
     //Serve css
     app.use('/public', express.static(__dirname + '/public'))
 
+    //Serve echo
+    app.get('/:word/echo', (req, res) => {
+      res.json({"echo": req.params.word})
+    })
+
     //Serve current time
     app.get('/now', (req, res, next) => {
       req.time = new Date().toString();
       next();
     }, (req, res) => {
-      res.send({"time": req.time});
+      res.json({"time": req.time});
     })
 
     //Serve json
